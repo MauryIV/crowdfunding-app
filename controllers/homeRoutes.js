@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project } = require('../models')
+const { Project, User } = require('../models')
 
 router.get('/', async (req, res) => {
   try{
@@ -13,35 +13,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:user_id', withAuth, async (req, res) => {
+router.get('/profile', withAuth, async (req, res) => {
   try {
-    const projectData = await Project.findAll({
-      where: {
-        user_id: req.session.user_id,
-      },
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Project }],
     });
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
-    }
-    res.status(200).json(projectData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-router.get('/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      where: {
-        user_id: req.session.user_id,
-      },
+    const user = userData.get({ plain: true });
+    res.render('profile', {
+      ...user,
+      logged_in: true
     });
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
-    }
-    res.status(200).json(projectData);
   } catch (err) {
     res.status(500).json(err);
   }
