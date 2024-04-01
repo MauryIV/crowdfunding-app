@@ -35,7 +35,10 @@ This is good for a starting point running an MVC based web application.
 
 <a id="Visuals"></a>
 ## Visuals
-NA
+![Screenshot 2024-04-01 at 3 10 51 PM](https://github.com/MauryIV/crowdfunding-app/assets/146037880/a080a73f-4318-4a75-84e8-cb757e5b1a92)
+![Screenshot 2024-04-01 at 3 10 56 PM](https://github.com/MauryIV/crowdfunding-app/assets/146037880/27b0f938-cd9a-4658-879f-ba92bba7c1e7)
+![Screenshot 2024-04-01 at 3 10 30 PM](https://github.com/MauryIV/crowdfunding-app/assets/146037880/3103835b-dfe8-43ab-b2d0-dd38e06f3acd)
+![Screenshot 2024-04-01 at 3 10 41 PM](https://github.com/MauryIV/crowdfunding-app/assets/146037880/4d2afacb-32d8-4612-8716-18013b19a0c9)
 
 <a id="tests"></a>
 ## Tests
