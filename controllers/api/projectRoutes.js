@@ -1,8 +1,7 @@
 const router = require('express').Router();
+const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
-const { Project, User } = require('../../models');
 
-// If a POST request is made to /api/projects, a new project is created. If there is an error, the function returns with a 400 error.
 router.post('/', withAuth, async (req, res) => {
   try {
     const newProject = await Project.create({
@@ -16,32 +15,6 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attribute: ['name'],
-        },
-      ]
-    });
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
-    }
-    const project = projectData.get({ plain: true });
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
-    });
-
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// If a DELETE request is made to /api/projects/:id, that project is deleted.
 router.delete('/:id', withAuth, async (req, res) => {
   try {
     const projectData = await Project.destroy({
